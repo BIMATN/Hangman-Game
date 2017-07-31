@@ -3,7 +3,6 @@
 //Variables
 
 var currentWord;
-var charReplace=[];
 
 
 //Word Objects
@@ -13,7 +12,7 @@ var charReplace=[];
 			clue: "'Were the circuits like freeways?'",
 			letters: ["T", "R", "O", "N"],
 			guesses: [],
-			wordDisplay: ["_","_","_","_"],
+			wordDisplay: ["_ ","_ ","_ ","_"],
 			guessCount: 8
 
 		}
@@ -23,7 +22,7 @@ var charReplace=[];
 			clue: "'Oh there you are Peter.'" ,
 			letters: ["H", "O", "O", "K"],
 			guesses: [],
-			wordDisplay: ["_","_","_","_"],
+			wordDisplay: ["_ ","_ ","_ ","_"],
 			guessCount: 6
 		}
 
@@ -32,7 +31,7 @@ var charReplace=[];
 			clue: "'No one can be told what the Matrix is.'",
 			letters: ["M", "O", "R", "P", "H", "E", "U", "S"],
 			guesses: [],
-			wordDisplay: ["_","_","_","_","_","_","_","_"],
+			wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ ","_"],
 			guessCount: 16
 		}
 
@@ -41,7 +40,7 @@ var charReplace=[];
 			clue: "Tell him to stay, Murph. Tell him to stay!",
 			letters: ["I", "N", "T", "E", "R", "S", "T", "E", "L", "L", "A", "R"],
 			guesses: [],
-			wordDisplay: ["_","_","_","_","_","_","_","_","_","_","_","_"],
+			wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_"],
 			guessCount: 16
 		}
 
@@ -50,16 +49,17 @@ var charReplace=[];
 			clue: "They're taking the Hobbits to Isengard!",
 			letters: ["L", "E", "G", "O", "L", "A", "S"],
 			guesses: [],
-			wordDisplay: ["_","_","_","_","_","_","_"],
+			wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
 			guessCount: 12
 		}
 
 
 	currentWord=word5;
+	console.log("This should be word5: ")
 	console.log(currentWord);
 
 
-//Array Printer
+//Function for printing out array contents
 
 	function arrayPrint(dataDump) 
 	{
@@ -69,28 +69,66 @@ var charReplace=[];
 		}
 	}
 
-	//arrayPrint(currentWord.letters);
 
-//Array Search and Respond
-	function arraySearch(guess) //Passing user guess to search function
-	{
-		for(i=0; i<currentWord.letters.length; i++) //searching through current array one character at a time
+//Function for responding to user guess
+
+	function analyze(guess) //Passing user guess to search function
+	{	
+		guess=guess.toUpperCase(); //change guess to uppercase
+
+		if (currentWord.guesses.indexOf(guess) === -1) //comparing guess with previous guesses
 		{
-			if (currentWord.letters[i] === guess) //comparing guess to current array character
-			{
-				currentWord.wordDisplay.splice(i,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
-			}
-			else 
-			{
-				//what do I put here?
-			}
+			currentWord.guesses.push(guess); //Add guess to guess array
 
+			for(i=0; i<currentWord.letters.length; i++) //searching through currentWord array one character at a time
+			{
+				if(currentWord.letters[i] === guess) //testing for matches
+				{
+					currentWord.wordDisplay.splice(i,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
+				}
+				else if(i === (currentWord.letters.length-1))
+				{
+					currentWord.guessCount--;
+				}
+			}
+		}
+		else
+		{
+			alert("You have already guessed this letter. Pay attention!"); //Tell user to try again
 		}
 	}
 
-	arrayPrint(currentWord.wordDisplay)
-	arraySearch("L")
-	arrayPrint(currentWord.wordDisplay)
+	//Testing Things
+	console.log("This should be undefined or 0 or empty:");
+	arrayPrint(currentWord.guesses);
+	console.log("This should be a bunch of underscores: ");
+	arrayPrint(currentWord.wordDisplay);
+	console.log("This should be 12: ");
+	console.log(currentWord.guessCount);
+	analyze("t");
+	console.log("This should be T: ")
+	arrayPrint(currentWord.guesses);
+	console.log("This should be a bunch of underscores: ")
+	arrayPrint(currentWord.wordDisplay);
+	console.log("This should be 11: ")
+	console.log(currentWord.guessCount);
+	analyze("l")
+	console.log("This should be T & L: ")
+	arrayPrint(currentWord.guesses);
+	console.log("This should be L and a bunch of underscores: ")
+	arrayPrint(currentWord.wordDisplay);
+	console.log("This should be 10: ")
+	console.log(currentWord.guessCount);
+	analyze("l")
+	console.log("should have an alert")
+	console.log("This should be T & L: ")
+	arrayPrint(currentWord.guesses);
+	console.log("This should be L and a bunch of underscores: ")
+	arrayPrint(currentWord.wordDisplay);
+	console.log("This should be 10: ")
+	console.log(currentWord.guessCount);
+
+
 
 
 /*
