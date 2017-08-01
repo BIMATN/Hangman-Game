@@ -82,7 +82,7 @@
 
 
 //Function for responding to user guess
-	function analyze(event) //Passing user guess to search function
+	function analyze(event) //Passing user guess to search and respond function
 	{	
 		var guess=event.which || event.keyCode; //to account for browswer cross compatibility and assign character code to variable
 		var guess = String.fromCharCode(guess); //to convert character code to letter and assign to variable
@@ -113,11 +113,11 @@
 				else if(i === (currentWord.letters.length-1)) //if it is not a match I want to take away a guess, but only one per wrong guess not per character
 				{
 					currentWord.guessCount--; //decreases guess count
-					document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount;
+					document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount; //updates guess count display
 				}
 			}
 		}
-		else
+		else //Runs if you have already guessed that letter
 		{
 			document.getElementById("guessForm").reset();//clears form after text entry
 			alert("You have already guessed this letter. Pay attention!"); //Tell user to try again
@@ -131,10 +131,16 @@
 		document.getElementById("wordClue").innerHTML = "Word Clue: "+currentWord.clue; //Shows word clue to user
 		document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay); //shows word character spaces to user
 		document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount; // shows guess count to user
+		document.getElementById("wins").innerHTML = "Wins: "+ wins; // shows win count to user
+		document.getElementById("losses").innerHTML = "Losses: "+ wins; // shows loss count to user
 		document.getElementById("userGuess").addEventListener("keyup", function(){ analyze(event);}); // processes user guess
 	}
 
-
+//Game reset - relies on the reset button press
+	function hangmanReset() 
+	{
+		location.reload(); //refreshes page - still wondering if I can use partial cached data or not
+	}
 
 	//Testing Things
 	/*
