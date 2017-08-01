@@ -15,45 +15,40 @@
 </head>
 <body>
 	<div class="container">
-
 		<div class="row">
-
 			<div class="col-xs-8 col-xs-offset-2">
-
 				<div class="jumbotron">
 					<p class="text-center">Welcome to Hangman</p>
 				</div>
 				<div class="jumbotron">
 					<p>Press start to begin</p>
+					<button onclick="hangmanPlay(event)">START</button>
 				</div>
 				<div class="panel panel-title">
-					<p>Word Theme:</p>
+					<p id=wordClue>Word Clue:</p>
 				</div>
 				<div class="panel panel-title">
-					<p>Word:</p>
+					<p id="wordDisplay">Word:</p>	
 				</div>
 				<div class="panel panel-title">
-					<p>_ _ _ _ _ _ _ _ _</p>
+					<p id=wordDisplay></p>
 				</div>
 				<div class="panel panel-title">
-					<p>Guess a letter</p>
+					<form id=guessForm>Guess a Letter: <input type="text" id="userGuess"></form>
+				</div>
+				<div id=lettersGuessed class="panel panel-title">
+					<p id=userGuessDisplay>Letters Guessed:</p>
 				</div>
 				<div class="panel panel-title">
-					<p>Letters Guessed:</p>
+					<p id=guessCount>Guesses Left:</p>
+				<div class="panel panel-title">
+					<p id="wins">Wins:</p>
 				</div>
 				<div class="panel panel-title">
-					<p>Guesses Left:</p>
-				<div class="panel panel-title">
-					<p>Wins:</p>
+					<p id="losses">Losses:</p>
 				</div>
-				<div class="panel panel-title">
-					<p>Losses:</p>
-				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 
 
