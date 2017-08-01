@@ -12,7 +12,7 @@
 	var gameWords = [
 		word1=
 			{
-				clue: "'Were the circuits like freeways?'",
+				clue: "\"Were the circuits like freeways?\"",
 				letters: ["T", "R", "O", "N"],
 				guesses: [],
 				wordDisplay: ["_","_","_","_"],
@@ -22,7 +22,7 @@
 
 		word2= 
 			{
-				clue: "'Oh there you are Peter.'" ,
+				clue: "\"Oh there you are Peter.\"" ,
 				letters: ["H", "O", "O", "K"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_"],
@@ -31,7 +31,7 @@
 
 		word3= 
 			{
-				clue: "'No one can be told what the Matrix is.'",
+				clue: "\"No one can be told what the Matrix is.\"",
 				letters: ["M", "O", "R", "P", "H", "E", "U", "S"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ ","_"],
@@ -40,7 +40,7 @@
 
 		word4=
 			{
-				clue: "Tell him to stay, Murph. Tell him to stay!",
+				clue: "\"Tell him to stay, Murph. Tell him to stay!\"",
 				letters: ["I", "N", "T", "E", "R", "S", "T", "E", "L", "L", "A", "R"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_"],
@@ -49,7 +49,7 @@
 
 		word5=
 			{
-				clue: "They're taking the Hobbits to Isengard!",
+				clue: "\"They're taking the Hobbits to Isengard!\"",
 				letters: ["L", "E", "G", "O", "L", "A", "S"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
@@ -84,8 +84,8 @@
 //Function for responding to user guess
 	function analyze(event) //Passing user guess to search function
 	{	
-		var guess=event.which || event.keyCode; //to account for browswer cross compatibility
-		var guess = String.fromCharCode(guess); //assigning character code to guess variable
+		var guess=event.which || event.keyCode; //to account for browswer cross compatibility and assign character code to variable
+		var guess = String.fromCharCode(guess); //to convert character code to letter and assign to variable
 		//document.getElementById("userGuessDisplay").innerHTML = "Letters Guessed: "+guess; //printing to div
 		
 		guess=guess.toUpperCase(); //change guess to uppercase
@@ -100,11 +100,20 @@
 			{
 				if(currentWord.letters[i] === guess) //testing for matches
 				{
-					currentWord.wordDisplay.splice(i,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
+					for(j=i;j<currentWord.letters.length; j++) //since it matches we run test w/o decreasing guess count but still catching all matches
+					{
+						if(currentWord.letters[j] === guess) //testing for matches
+						{
+							currentWord.wordDisplay.splice(j,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
+							document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay);//we then update the wordDisplay
+						}
+					}
+					break; //break out of higher for loop to prevent else if for non match characters
 				}
-				else if(i === (currentWord.letters.length-1)) //if it is not a match I want to take away a guess, but only one per guess not per character
+				else if(i === (currentWord.letters.length-1)) //if it is not a match I want to take away a guess, but only one per wrong guess not per character
 				{
 					currentWord.guessCount--; //decreases guess count
+					document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount;
 				}
 			}
 		}
@@ -116,13 +125,13 @@
 	}
 
 //Game startup - relies on the start button press
-	function hangmanPlay() //start sequence over and clear variables -- how to clear guess arrays, guess count, and word display in each word object?
+	function hangmanPlay() //Prepare yourselves, for glory!
 	{	
-		currentWord=gameWords[0];		   					
-		document.getElementById("wordClue").innerHTML = "Word Clue: "+currentWord.clue;
-		document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay);
-		document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount;
-		document.getElementById("userGuess").addEventListener("keyup", function(){ analyze(event);});
+		currentWord=gameWords[4]; //Accessing zero-based index  					
+		document.getElementById("wordClue").innerHTML = "Word Clue: "+currentWord.clue; //Shows word clue to user
+		document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay); //shows word character spaces to user
+		document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount; // shows guess count to user
+		document.getElementById("userGuess").addEventListener("keyup", function(){ analyze(event);}); // processes user guess
 	}
 
 
