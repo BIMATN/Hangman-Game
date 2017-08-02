@@ -17,7 +17,6 @@
 				guesses: [],
 				wordDisplay: ["_","_","_","_"],
 				guessCount: 6
-
 			},
 
 		word2= 
@@ -69,32 +68,31 @@
 		return newDisplayString;
 	}
 
-//Function for printing out array contents
+//Function for testing for win state
 
-	function arrayPrint(dataDump) 
+function winCheck() 
+{
+	if(convertAndReplace(currentWord.wordDisplay) === convertAndReplace(currentWord.letters)) //test to see if word has been guessed
 	{
-		for(i=0; i<dataDump.length; i++) 
-		{
-			console.log(dataDump[i]);
-
-		}
+		wins++; //word has been guessed, increase wins
+		document.getElementById("wins").innerHTML = "Wins: "+ wins; // shows win count to user
+		confirm("You have won! Great job! Now go change the world! Or perhaps you'd like to play again?"); //asks user to play again
 	}
-
+}
 
 //Function for responding to user guess
 	function analyze(event) //Passing user guess to search and respond function
 	{
 		var guess=event.which || event.keyCode; //to account for browswer cross compatibility and assign character code to variable
 		var guess = String.fromCharCode(guess); //to convert character code to letter and assign to variable
-		//document.getElementById("userGuessDisplay").innerHTML = "Letters Guessed: "+guess; //printing to div
 		
 		guess=guess.toUpperCase(); //change guess to uppercase
 
 		if (currentWord.guesses.indexOf(guess) === -1) //comparing guess with previous guesses array
 		{
 			currentWord.guesses.push(guess); //Add guess to guesses array
-			document.getElementById("userGuessDisplay").innerHTML = "Letters Guessed: "+convertAndReplace(currentWord.guesses);//shows array of user guesses
-			document.getElementById("guessForm").reset();//clears form after text entry
+			document.getElementById("userGuessDisplay").innerHTML = "Letters Guessed: "+convertAndReplace(currentWord.guesses); //shows array of user guesses
+			document.getElementById("guessForm").reset(); //clears form after text entry
 
 			for(i=0; i<currentWord.letters.length; i++) //searching through currentWord array one character at a time
 			{
@@ -105,7 +103,9 @@
 						if(currentWord.letters[j] === guess) //testing for matches
 						{
 							currentWord.wordDisplay.splice(j,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
-							document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay);//we then update the wordDisplay
+							document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay); //we then update the wordDisplay
+
+							setTimeout(winCheck(), 1000); //run win check
 						}
 					}
 					break; //break out of higher for loop to prevent else if for non match characters
@@ -114,6 +114,13 @@
 				{
 					currentWord.guessCount--; //decreases guess count
 					document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount; //updates guess count display
+
+					if(currentWord.guessCount === 0) //test to see if there are more guesses and if not then user loses
+					{
+						losses++;
+						document.getElementById("losses").innerHTML = "Losses: "+ losses; // shows win count to user
+						confirm("You have lost! Go watch more movies! Or if you dare, would you like to play again?");
+					}
 				}
 			}
 		}
