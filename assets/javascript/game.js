@@ -16,7 +16,7 @@
 				letters: ["T", "R", "O", "N"],
 				guesses: [],
 				wordDisplay: ["_","_","_","_"],
-				guessCount: 8
+				guessCount: 6
 
 			},
 
@@ -35,7 +35,7 @@
 				letters: ["M", "O", "R", "P", "H", "E", "U", "S"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ ","_"],
-				guessCount: 16
+				guessCount: 8
 			},
 
 		word4=
@@ -44,7 +44,7 @@
 				letters: ["I", "N", "T", "E", "R", "S", "T", "E", "L", "L", "A", "R"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_ ","_"],
-				guessCount: 16
+				guessCount: 8
 			},
 
 		word5=
@@ -53,7 +53,7 @@
 				letters: ["L", "E", "G", "O", "L", "A", "S"],
 				guesses: [],
 				wordDisplay: ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
-				guessCount: 12
+				guessCount: 8
 			}
 		]
 
@@ -83,14 +83,14 @@
 
 //Function for responding to user guess
 	function analyze(event) //Passing user guess to search and respond function
-	{	
+	{
 		var guess=event.which || event.keyCode; //to account for browswer cross compatibility and assign character code to variable
 		var guess = String.fromCharCode(guess); //to convert character code to letter and assign to variable
 		//document.getElementById("userGuessDisplay").innerHTML = "Letters Guessed: "+guess; //printing to div
 		
 		guess=guess.toUpperCase(); //change guess to uppercase
 
-		if (currentWord.guesses.indexOf(guess) === -1) //comparing guess with previous guesses
+		if (currentWord.guesses.indexOf(guess) === -1) //comparing guess with previous guesses array
 		{
 			currentWord.guesses.push(guess); //Add guess to guesses array
 			document.getElementById("userGuessDisplay").innerHTML = "Letters Guessed: "+convertAndReplace(currentWord.guesses);//shows array of user guesses
@@ -125,12 +125,41 @@
 	}
 
 //Game startup - relies on the start button press
+
 	function hangmanPlay() //Prepare yourselves, for glory!
-	{	
-		currentWord=gameWords[4]; //Accessing zero-based index  					
+	{						
+		//Random Word Choice for Hangman
+
+		ranSel=Math.floor(Math.random()*100);
+
+		if(ranSel <= 20) 
+		{
+			currentWord=word1;
+		}
+
+		else if (ranSel <= 40) 
+		{
+			currentWord=word2;
+		}
+
+		else if (ranSel <= 60) 
+		{
+			currentWord=word3;
+		}
+
+		else if (ranSel <= 80) 
+		{
+			currentWord=word4;
+		}
+
+		else
+		{
+			currentWord=word5;
+		}
+
 		document.getElementById("wordClue").innerHTML = "Word Clue: "+currentWord.clue; //Shows word clue to user
 		document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay); //shows word character spaces to user
-		document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount; // shows guess count to user
+		document.getElementById("guessCount").innerHTML = "Incorrect Guesses Left: "+currentWord.guessCount; // shows guess count to user
 		document.getElementById("wins").innerHTML = "Wins: "+ wins; // shows win count to user
 		document.getElementById("losses").innerHTML = "Losses: "+ wins; // shows loss count to user
 		document.getElementById("userGuess").addEventListener("keyup", function(){ analyze(event);}); // processes user guess
@@ -141,6 +170,9 @@
 	{
 		location.reload(); //refreshes page - still wondering if I can use partial cached data or not
 	}
+
+
+
 
 	//Testing Things
 	/*
