@@ -72,7 +72,6 @@
 	{
 		if(playAgain === true)
 		{
-			console.log("user wants to play again");
 			nextWord++;
 			rightCount=0;
 			currentWord=gameWords[nextWord];
@@ -102,15 +101,18 @@
 	{
 		if(rightCount===currentWord.correctCount) //test to see if word has been guessed
 		{
-			//console.log(rightCount);
-			//console.log(currentWord.correctCount);
-			console.log("running you have won response");
-			wins=wins+1; //word has been guessed, increase wins
-			console.log("win count: "+wins);
-			console.log("should have 0 losses: " + losses);
+			wins++; //word has been guessed, increase wins
 			document.getElementById("wins").innerHTML = "Wins: "+ wins; // shows win count to user
-			playAgain = confirm("You have won! Great job! Now go change the world! Or perhaps you'd like to play again?"); //asks user to play again
-			playAgainResponse(); //test play again response
+			if(currentWord!==gameWords[4])
+			{
+				playAgain = confirm("You have won! Great job! Now go change the world! Or perhaps you'd like to play again?"); //asks user to play again
+				playAgainResponse(); //test play again response
+			}
+			else
+			{
+				alert("You have won the last challenges! Thanks for Playing!")
+				location.reload();
+			}		
 		}
 	}
 
@@ -122,8 +124,16 @@
 		{
 			losses++;
 			document.getElementById("losses").innerHTML = "Losses: "+ losses; // shows win count to user
-			playAgain = confirm("You have lost! Go watch more movies! Or if you dare, would you like to play again?"); //asks user to play again
-			playAgainResponse(); //test play again response
+			if(currentWord!==gameWords[4])
+			{
+				playAgain = confirm("You have lost! Go watch more movies! Or if you dare, would you like to play again?"); //asks user to play again
+				playAgainResponse(); //test play again response
+			}
+			else
+			{
+				alert("You lost the last challenge but thanks for playing!");
+				location.reload();
+			}
 		}
 	}
 
@@ -141,20 +151,15 @@
 			{
 				if(currentWord.letters[i] === guess) //testing for matches
 				{
-					console.log("this is i:"+i);
 					for(j=i;j<currentWord.letters.length; j++) //since it matches we run test w/o decreasing guess count but still catching all matches
 					{
-						console.log("this is i:"+i);
-						console.log("this is j:"+j);
 						if(currentWord.letters[j] === guess) //testing for matches
 						{
 							currentWord.wordDisplay.splice(j,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
 							document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay); //we then update the wordDisplay
 							rightCount++;
-							console.log("I'm about to run the win test");
 							winCheck();
 							//setTimeout(function(){ winCheck(); }, 1000); //causes issues
-							console.log("I ran it");
 						}
 					}
 					break; //break out of higher for loop to prevent else if for non match characters and to prevent repeat checks
@@ -185,11 +190,12 @@
 	}
 
 
-//----STARTING FUNCTION----Function for starting and playing game - relies on the start button press or play again = true
+//----STARTING FUNCTION----Function for starting and playing game - relies on the start button press
 //Prepare yourselves, for glory!
 
 	function hangmanPlay()
 	{	
+		document.getElementById("startButton").innerHTML = "Enjoy Your Game";
 		currentWord=gameWords[0]; //set game word
 		rightCount=0; //set right count to 0					
 		document.getElementById("wordClue").innerHTML = "Word Clue: "+currentWord.clue; //Shows word clue to user
