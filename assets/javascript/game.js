@@ -196,6 +196,7 @@
 	function hangmanPlay()
 	{	
 		document.getElementById("startButton").innerHTML = "Enjoy Your Game";
+		document.getElementById("start").style.display = "none";
 		currentWord=gameWords[0]; //set game word
 		rightCount=0; //set right count to 0					
 		document.getElementById("wordClue").innerHTML = "Word Clue: "+currentWord.clue; //Shows word clue to user

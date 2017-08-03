@@ -3,56 +3,67 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hangman-Game</title>
+
+	<!--Style Sheets-->
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 	<!-- style sheet for my customization -->
 	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- Link to Iceland Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Iceland" rel="stylesheet">
 
 </head>
 <body>
+	<div id="background">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2">
-				<div class="jumbotron">
-					<p class="text-center">Welcome to Hangman</p>
-				</div>
-				<div id="startButton" class="jumbotron">
-					<p>Press start to begin</p>
-					<button onclick="hangmanPlay(event)">START</button>
-				</div>
-				<div class="panel panel-title">
-					<p id="wordClue">Word Clue:</p>
-				</div>
-				<div class="panel panel-title">
-					<p id="wordDisplay">Word:</p>	
-				</div>
-				<div class="panel panel-title">
-					<p id="wordDisplay"></p>
-				</div>
-				<div class="panel panel-title">
-					<form id="guessForm">Guess a Letter: <input type="text" id="userGuess"></form>
-				</div>
-				<div id=lettersGuessed class="panel panel-title">
-					<p id="userGuessDisplay">Letters Guessed:</p>
-				</div>
-				<div class="panel panel-title">
-					<p id="guessCount">Incorrect Guesses Left:</p>
-				<div class="panel panel-title">
-					<p id="wins">Wins:</p>
-				</div>
-				<div class="panel panel-title">
-					<p id="losses">Losses:</p>
-				</div>
-				<div class="jumbotron">
-					<p>Press reset to start over</p>
-					<button onclick="hangmanReset(event)">RESET</button>
+				<div class="page-header">
+					<h1 class="text-center">Welcome to Hangman</h1>
+					<h4 class="text-center">Film Edition</h4>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-4">
+				<div>
+					<h2 id="startButton" class="text-center">Press start to begin</h2>
+					<button id="start" class="center-block" onclick="hangmanPlay(event)">START</button>
+				</div>
+				<div>
+					<h3 id="wordClue" class="text-center border">Word Clue:</h3>
+				</div>
+				<div>
+					<h3 id="wordDisplay" class="text-center border">Word:</h3>
+				</div>
+				<div>
+					<form class="text-center border" id="guessForm"><h3 class="text-center">Guess a Letter:</h3><input type="text" id="userGuess"></form>
+				</div>
+				<div>
+					<h3 id="userGuessDisplay" class="text-center border">Letters Guessed:</h3>
+				</div>
+				<div>
+					<h3 id="guessCount" class="text-center border">Incorrect Guesses Left:</h3>
+				<div>
+					<h3 id="wins" class="text-center border">Wins:</h3>
+				</div>
+				<div>
+					<h3 id="losses" class="text-center border">Losses:</h3>
+				</div>
+				<div>
+					<h2 id="resetButton" class="text-center">Press reset to start over</h2>
+					<button class="center-block" onclick="hangmanReset(event)">RESET</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<br>
+	<!--Footer-->
+	<div class="panel-footer navbar-inverse">
+		<p class="text-center text">&#169; Copyright 2017 Benjamin Rodriguez</p>
 	</div>
 
 

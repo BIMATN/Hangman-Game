@@ -1,0 +1,44 @@
+/*--- Hangman CSS ---*/
+
+@font-face
+{
+	font-family: planetOfTheApes;
+	src: url("../fonts/planetOfTheApes.ttf");
+}
+
+body 
+{
+	background-image: url("../images/dark_wall.png");
+	margin-bottom: -70px;
+}
+
+#background
+{
+	background-image: url("../images/mattebox-deluxe-front.png") !important;
+	/*Courtesy of https://shop.redrockmicro.com/wp-content/uploads/2016/08/mattebox-deluxe-front.png*/
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+.page-header
+{
+	font-family: planetOfTheApes;
+	color: white;
+}
+
+p,h2,h3,h5,h6
+{
+	font-family: 'Iceland', cursive;
+	color: white;
+}
+
+#startButton, #resetButton
+{
+	border: 2px dotted white;
+}
+
+.border 
+{
+	border: 4px inset white;
+}
