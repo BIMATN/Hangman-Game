@@ -158,8 +158,8 @@
 							currentWord.wordDisplay.splice(j,1,guess);	//since it is a match we will replace the correct wordDisplay character with guess
 							document.getElementById("wordDisplay").innerHTML = "Word: "+ convertAndReplace(currentWord.wordDisplay); //we then update the wordDisplay
 							rightCount++;
-							winCheck();
-							//setTimeout(function(){ winCheck(); }, 1000); //causes issues
+							//winCheck();
+							setTimeout(function(){ winCheck(); }, 1000); //causes issues
 						}
 					}
 					break; //break out of higher for loop to prevent else if for non match characters and to prevent repeat checks
@@ -168,8 +168,8 @@
 				{
 					currentWord.guessCount--; //decreases guess count
 					document.getElementById("guessCount").innerHTML = "Guesses Left: "+currentWord.guessCount; //updates guess count display
-					lossCheck();
-					//setTimeout(function(){ lossCheck(); }, 200); //causes issues
+					//lossCheck();
+					setTimeout(function(){ lossCheck(); }, 200); //causes issues
 				}
 			}
 		}
